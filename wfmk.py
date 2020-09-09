@@ -360,7 +360,8 @@ epilog = """Examples:
 
 parser = argparse.ArgumentParser(
     description="Look up information about Warframe items on warframe.market",
-    epilog=epilog)
+    epilog=epilog,
+    formatter_class=argparse.RawDescriptionHelpFormatter)
 
 parser.add_argument(
     'items', metavar='item', nargs='*',
