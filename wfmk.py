@@ -349,13 +349,13 @@ retval = 0
 
 epilog = """Examples:
 # Print the current selling price for the Ammo Drum Mod
-    warframe-market.py "ammo drum"
+    wfmk.py "ammo drum"
 
 # Print the buying price for all Ember Prime items (and set)
-    warframe-market.py -s -b "Ember Prime*"
+    wfmk.py -s -b "Ember Prime*"
 
 # List all items with "rubedo" in their name:
-    warframe-market.py -l "*rubedo*"
+    wfmk.py -l "*rubedo*"
 """
 
 parser = argparse.ArgumentParser(
