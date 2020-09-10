@@ -4,8 +4,7 @@ Unofficial [Warframe Market](https://warframe.market) command-line utility.
 usage: wfmk.py [-h] [-d DEBUG] [-q] [-v] [--clear-cache | -l | -O | -s]
                [-C DIR] [--no-cache] [--ttl-items CACHE_TTL]
                [--ttl-orders CACHE_TTL] [--rate-limit RATE_LIMIT] [-a] [-b]
-               [-f FILE] [--platform {pc,ps4,switch,xbox}]
-               [--language LANGUAGE] [-r]
+               [-f FILE] [-P {pc,ps4,switch,xbox}] [-L LANGUAGE] [-r]
                [item [item ...]]
 
 Look up information about Warframe items on warframe.market
@@ -34,13 +33,13 @@ Cache Options:
                         The directory to use for the local disk cache.
                         Default: /home/tim/.cache/warframe-market
   --no-cache            Disable the local disk cache
-  --ttl-items CACHE\_TTL
+  --ttl-items CACHE_TTL
                         How long to cache the list of all Warframe items.
                         Default: 1d
-  --ttl-orders CACHE\_TTL
+  --ttl-orders CACHE_TTL
                         How long to cache the list of orders for an item.
                         Default: 10m
-  --rate-limit RATE\_LIMIT
+  --rate-limit RATE_LIMIT
                         How fast to send API requests (per minute). Default:
                         180
 
@@ -49,20 +48,27 @@ Miscellaneous Options:
                         users)
   -b, --buyers          Show only users looking to buy the item
   -f FILE, --file FILE  Read list of items from a file, one item per line.
-  --platform {pc,ps4,switch,xbox}
-                        The Warframe platform to search (Default: pc).E.g.
-                        "pc", "ps4", "switch", "xbox"
-  --language LANGUAGE   The Warframe language to search (Default: en). E.g.
-                        "de", "en", "fr", "ko", "ru", "sv", or "zh"
+  -P {pc,ps4,switch,xbox}, --platform {pc,ps4,switch,xbox}
+                        The Warframe platform to search. Default: pc.
+  -L LANGUAGE, --language LANGUAGE
+                        The Warframe language code to search. Default: en.
+                        E.g. "de", "en", "fr", "ko", "ru", "sv", or "zh"
   -r, --reverse         Reverse the sorting order
 
 Examples:
 # Print the current selling price for the Ammo Drum Mod
-wfmk.py "ammo drum"
+    wfmk.py "ammo drum"
 
 # Print the buying price for all Ember Prime items (and set)
-wfmk.py -s -b "Ember Prime*"
+    wfmk.py -s -b "Ember Prime*"
 
 # List all items with "rubedo" in their name:
-wfmk.py -l "*rubedo*"
+    wfmk.py -l "*rubedo*"
+
+# List all Xiphos parts, but not the set
+    wfmk.py -l "xiphos [a-f]*"
+    wfmk.py -l "xiphos [!s]*"
+
+# NOTE: All item matches are case insensitive and follow Python
+#       fnmatch rules.
 ```

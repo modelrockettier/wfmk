@@ -356,6 +356,13 @@ epilog = """Examples:
 
 # List all items with "rubedo" in their name:
     wfmk.py -l "*rubedo*"
+
+# List all Xiphos parts, but not the set
+    wfmk.py -l "xiphos [a-f]*"
+    wfmk.py -l "xiphos [!s]*"
+
+# NOTE: All item matches are case insensitive and follow Python
+#       fnmatch rules.
 """
 
 parser = argparse.ArgumentParser(
@@ -380,16 +387,17 @@ parser.add_argument(
 
 actions = parser.add_argument_group('Actions').add_mutually_exclusive_group()
 actions.add_argument(
-    '--clear-cache', action="store_true", default=False,
+    '--clear-cache', action="store_true",
     help="Delete the contents of the local disk cache")
 actions.add_argument(
-    '-l', '--list', action="store_true", default=False,
+    '-l', '--list', action="store_true",
     help="List items matching the specified name patterns")
+# NOTE: Orders is the default action if none are specified.
 actions.add_argument(
-    '-O', '--orders', action="store_true", default=False,
+    '-O', '--orders', action="store_true",
     help="List an item's current orders (the default)")
 actions.add_argument(
-    '-s', '--summary', action="store_true", default=False,
+    '-s', '--summary', action="store_true",
     help="Show only a summary of the item's prices")
 
 group = parser.add_argument_group('Cache Options')
@@ -423,12 +431,11 @@ group.add_argument(
     '-f', '--file', action="append",
     help="Read list of items from a file, one item per line.")
 group.add_argument(
-    '--platform', choices=["pc", "ps4", "switch", "xbox"], default="pc",
-    help="The Warframe platform to search (Default: %(default)s)."
-         "E.g. \"pc\", \"ps4\", \"switch\", \"xbox\"")
+    '-P', '--platform', choices=["pc", "ps4", "switch", "xbox"], default="pc",
+    help="The Warframe platform to search. Default: %(default)s.")
 group.add_argument(
-    '--language', default="en",
-    help="The Warframe language to search (Default: %(default)s). "
+    '-L', '--language', default="en",
+    help="The Warframe language code to search. Default: %(default)s. "
          "E.g. \"de\", \"en\", \"fr\", \"ko\", \"ru\", \"sv\", or \"zh\"")
 group.add_argument(
     '-r', '--reverse', action="store_true", default=False,
